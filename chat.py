@@ -69,39 +69,5 @@ def main():
 
 
 
-def tester():
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-
-    print("VALID QUERY")
-    cursor.execute('''
-                 select m.text, h.id
-                 from message as m join handle as h on m.handle_id = h.ROWID
-                 and h.id = "+19054073037"
-                 where m.is_from_me = 0
-                 order by date desc
-                 limit 1;
-                 ''')
-
-    results = cursor.fetchall()
-    print(results)
-    print()
-    print("INVALID QUERY")
-
-    cursor.execute('''
-                select m.text, h.id
-                from message as m join handle as h on m.handle_id = h.ROWID
-                and h.id = "+134582345982348423"
-                where m.is_from_me = 0
-                order by date desc
-                limit 1;
-                 ''')
-
-    results = cursor.fetchall()
-    print(results)
-    print()
-
-
 if __name__ == "__main__":
     main()
-    # tester()
