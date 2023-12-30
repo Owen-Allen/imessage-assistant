@@ -5,6 +5,7 @@ import sqlite3
 
 DB_PATH = '/Users/owenallen/Library/Messages/chat.db'
 
+
 class Message:
     def __init__(self, guid, text, date, is_from_me):
         self.guid = guid
@@ -16,13 +17,25 @@ class Message:
         return f'''Message:\n         guid: {self.guid} \n         text: {self.text} \n         date: {self.date} \n   is_from_me: {self.is_from_me}'''
     
 
-def get_recent_message(phone: int):
+def get_phone_number():
+    parser = argparse.ArgumentParser(description='A chat script that responds to texts using Chat GPT')
+    parser.add_argument('-phone', nargs='?', help='phone number number of person you want to respond to')
+    args = parser.parse_args()
+    phone_number = args.phone
+
+    if(not phone_number):
+        raise Exception("No phone number found in user input. -phone [+12345]")
+
+    phone_number = phone_number if phone_number.startswith("+1") else "+1" + phone_number
+    return phone_number
+
+def get_recent_incoming_message(phone_number: int):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
     cursor.execute(f'''select m.guid, m.text, m.date, m.is_from_me
                       from message as m join handle as h on m.handle_id = h.ROWID
-                      and h.id = "{phone}"
+                      and h.id = "{phone_number}"
                       where m.is_from_me = 0
                       order by date desc
                       limit 1;
@@ -33,40 +46,22 @@ def get_recent_message(phone: int):
         message = Message(*results[0])
         return message
     else:
-        print(f"Could not find any messages from {phone}. Do you have the correct phone number?")
-        return False
+        raise Exception(f"No message found from {phone_number}")
 
-
-
-def generate_response(message: Message):
+def generate_message_response(message: Message):
     # some api call
     return "Sure! That sounds awesome"
+.py
 
-
-def send_text(message: str, phone: str):
-    # os.system(f"imessage --text {message} --contacts {phone}")
+def send_text(message: str, phone_number: str):
+    os.system(f"imessage --text '{message}' --contacts {phone_number}")
     return
 
 def main():
-    # parse phone # from user input
-    parser = argparse.ArgumentParser(description='A chat script that responds to texts using Chat GPT')
-    parser.add_argument('-phone', nargs='?', help='Specify the name for the chat')
-    args = parser.parse_args()
-    phone = args.phone
-    phone = phone if phone.startswith("+1") else "+1" + phone
-
-    print(phone)
-
-    print(f"Generating a response for recent texts with, {phone}!")
-    message = get_recent_message(phone)
-    print(message)
-    if(not message): return
-    response = generate_response(message)
-
-    # check if user it using safe mode?
-    send_text(response, phone)
-
-
+    phone_number = get_phone_number()
+    message = get_recent_incoming_message(phone_number)
+    message_response = generate_message_response(message)
+    send_text(message_response, phone_number)
 
 
 if __name__ == "__main__":
