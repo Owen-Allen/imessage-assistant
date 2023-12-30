@@ -5,7 +5,6 @@ import sqlite3
 
 DB_PATH = '/Users/owenallen/Library/Messages/chat.db'
 
-
 class Message:
     def __init__(self, guid, text, date, is_from_me):
         self.guid = guid
@@ -51,7 +50,6 @@ def get_recent_incoming_message(phone_number: int):
 def generate_message_response(message: Message):
     # some api call
     return "Sure! That sounds awesome"
-.py
 
 def send_text(message: str, phone_number: str):
     os.system(f"imessage --text '{message}' --contacts {phone_number}")
