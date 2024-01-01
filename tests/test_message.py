@@ -1,5 +1,3 @@
-# test_message.py
-
 import unittest
 from context import Message, MessageList
 
