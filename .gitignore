@@ -1,0 +1,9 @@
+.env
+notes.md
+
+# Bytecode files
+__pycache__/
+*.pyc
+
+# virtual environment files
+env
