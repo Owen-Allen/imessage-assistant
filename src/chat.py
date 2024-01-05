@@ -11,7 +11,7 @@ class ChatAPI:
     def __init__(self, db_path):
         self.db_path = db_path
 
-    def get_recent_messages(self, phone_number, quantity):
+    def get_recent_messages(self, phone_number, quantity) -> MessageList:
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
 
@@ -33,7 +33,7 @@ class ChatAPI:
 
         return messages
 
-    def get_messages_since(self, phone_number, date: int):
+    def get_messages_since(self, date: int, phone_number: str) -> MessageList:
 
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
@@ -53,4 +53,3 @@ class ChatAPI:
             messages.append(message)
 
         return messages
-
