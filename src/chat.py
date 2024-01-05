@@ -18,6 +18,7 @@ class ChatAPI:
         cursor.execute(f'''select m.guid, m.text, m.date, m.is_from_me
                         from message as m join handle as h on m.handle_id = h.ROWID
                         and h.id = "{phone_number}"
+                        where m.is_from_me = 0
                         order by date desc
                         limit {quantity};
                     ''')
