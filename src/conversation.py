@@ -16,6 +16,7 @@ class Conversation:
 
     def init_messages(self):
         messages = self.chat.get_recent_messages(self.phone_number, 1)
+
         self.messages = messages
 
     def refresh_messages(self):
@@ -24,11 +25,14 @@ class Conversation:
         new_messages = self.chat.get_messages_since(self.phone_number, latest_message.date)
  
         for message in new_messages:
-            self.messages.append(message)
-        return
-    
-    def get_latest_from_user(self):
-        for message in reversed(self.messages):
             if not message.is_from_me:
-                return message
-        raise Exception('No message from user')
+                self.messages.append(message)
+    
+    def get_messages_after(self, guid) -> MessageList:
+        ret_messages = MessageList()
+        for message in reversed(self.messages):
+            if message.guid == guid:
+                break
+            if not message.is_from_me:
+                ret_messages.append(message)
+        return ret_messages
