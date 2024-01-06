@@ -41,6 +41,7 @@ class ChatAPI:
         cursor.execute(f'''SELECT m.guid, m.text, m.date, m.is_from_me
                 FROM message AS m JOIN handle AS h ON m.handle_id = h.ROWID
                 WHERE h.id = "{phone_number}" AND m.date > {date}
+                AND m.is_from_me = 0
                 ORDER BY m.date ASC;
                     ''')
         

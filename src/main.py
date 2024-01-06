@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import os
 import time
-import json
 import logging
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -10,13 +9,11 @@ from .conversation import Conversation
 from .cli import ArgParseWrapper
 from .chat import ChatAPI
 
-# Load environment variables
 load_dotenv()
 
 DB_PATH = os.getenv('DB_PATH', '/Users/owenallen/Library/Messages/chat.db')
 openai_api_key = os.getenv('OPENAI_API_KEY')
 
-# Initialize OpenAI client
 client = OpenAI(api_key=openai_api_key)
 
 def send_text(message: str, phone_number: str):
@@ -67,7 +64,6 @@ def main():
             last_message_id = messages_from_user[-1].guid
 
             combined_message_text = ""
-
             for message in messages_from_user:
                 combined_message_text += message.text + "  "
 
@@ -77,7 +73,6 @@ def main():
                         content=combined_message_text,
             )
 
-            # send assistant a message
             run = client.beta.threads.runs.create(
                 thread_id=thread.id,
                 assistant_id=assistant.id,
