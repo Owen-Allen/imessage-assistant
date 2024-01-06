@@ -22,7 +22,7 @@ class Conversation:
     def refresh_messages(self):
         # check the chat for new messages, if so, update our messages
         latest_message = self.messages[-1]
-        new_messages = self.chat.get_messages_since(self.phone_number, latest_message.date)
+        new_messages = self.chat.get_messages_since(latest_message.date, self.phone_number)
  
         for message in new_messages:
             if not message.is_from_me:
