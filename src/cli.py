@@ -7,11 +7,11 @@ class ArgParseWrapper:
         self._setup_arguments()
 
     def _setup_arguments(self):
-        # Phone number argument
-        self.parser.add_argument('-phone', type=self.format_and_validate_phone_number,
+        # Phone arg. REQUIRED
+        self.parser.add_argument('phone', type=self.format_and_validate_phone_number, 
                                  help='Phone number in 9-digit format or +1 followed by 9 digits')
 
-        # Safe mode flag
+        # Safe mode flag. Optional
         self.parser.add_argument('--safe-mode', action='store_true',
                                  help='Enable safe mode')
 
