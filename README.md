@@ -13,4 +13,4 @@ A python script that responds to iMessages using OpenAI Assistants
 - [ ] Create a User class by seperating responsibilies from the Conversation
 
 Bug:
-- Since the messages are selected by phone number, get_messages_since() will sometimes get messages from the correct person but in a different conversation (group chat). To fix, when initiating a Conversation, we should figure out the chat.guid from the chat_handle_join table
+- Since the messages are selected by phone number, get_messages_since() will sometimes get messages from the correct person but in a different conversation, if they sent a message to you after the program began. To fix, when initiating a Conversation, pull the chat.guid from the chat_handle_join table and add an extra WHERE clause to the sql query
