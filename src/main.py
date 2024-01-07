@@ -4,17 +4,16 @@ import time
 import logging
 from dotenv import load_dotenv
 from openai import OpenAI
-from .message import Message, MessageList
 from .conversation import Conversation
 from .cli import ArgParseWrapper
 from .chat import ChatAPI
 
 load_dotenv()
 
-DB_PATH = os.getenv('DB_PATH', '/Users/owenallen/Library/Messages/chat.db')
-openai_api_key = os.getenv('OPENAI_API_KEY')
+DB_PATH = os.getenv('DB_PATH')
+OPEN_AI_KEY = os.getenv('OPENAI_API_KEY')
 
-client = OpenAI(api_key=openai_api_key)
+client = OpenAI(api_key=OPEN_AI_KEY)
 
 def send_text(message: str, phone_number: str):
     logging.info("Sending text")

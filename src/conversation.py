@@ -16,7 +16,6 @@ class Conversation:
 
     def init_messages(self):
         messages = self.chat.get_recent_messages(self.phone_number, 1)
-
         self.messages = messages
 
     def refresh_messages(self):
@@ -33,6 +32,5 @@ class Conversation:
         for message in reversed(self.messages):
             if message.guid == guid:
                 break
-            if not message.is_from_me:
-                ret_messages.append(message)
+            ret_messages.append(message)
         return ret_messages
