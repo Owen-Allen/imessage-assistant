@@ -1,4 +1,4 @@
-# iMessage-GPT
+# iMessage Assistant
 
 A python script that responds to iMessages using OpenAI Assistants. Run the program followed by the phone number of the person you want to respond to, and let the assistant take it away. 
 
