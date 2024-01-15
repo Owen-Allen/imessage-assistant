@@ -5,7 +5,7 @@ A python script that responds to iMessages using OpenAI Assistants. Run the prog
 ```
 $ python3 -m src.main 6133054948 
 ```
- 
+
 
 ## Prerequisites
 - MacOS (required for iMessage DB access)
