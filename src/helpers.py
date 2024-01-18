@@ -1,5 +1,5 @@
 import datetime, time
-
+# This code is not in use, though it is helpful if you want to get a better look at the timestamp of messages
 def cocoa_readable(timestamp: int):
     return datetime.datetime.fromtimestamp((timestamp / 1_000_000_000) + 978307200)
 
